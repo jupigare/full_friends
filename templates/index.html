@@ -39,7 +39,7 @@
       <td>{{ friend['last_name'] }}</td>
       <td>{{ friend['occupation'] }}</td>
       <td>{{ friend['updated_at'] }}</td>
-      <td><a href="/friends"+{{friend['id']}}>Edit</a></td>
+      <td><a href="/friends/{}/edit".format({{friend['id']}})>Edit</a></td>
     </tr>
   {% endfor %}
 </tbody></table>
@@ -47,8 +47,8 @@
 <h1>Add a Friend</h1>
 <form action='/add' method='POST'>
   <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
-  <label for="last_name">Last Name:<input type="text" name="last_name" id="last_name"></label>
-  <label for="occupation">Occupation:<input type="text" name="occupation" id="occupation"></label>
+  <label for="last_name"> Last Name:<input type="text" name="last_name" id="last_name"></label>
+  <label for="occupation"> Occupation:<input type="text" name="occupation" id="occupation"></label>
   <input type="submit" value="Add">
 </form>
 
