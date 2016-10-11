@@ -1,13 +1,21 @@
 .flash {
-	font:2em bold;
+	font-size:2em;
+	font-weight:700;
 	text-align:center;
 	width:50%;
-	height:2em;
+	height:45px;
+	padding-top:5px;
 	border:1px solid #000;
 }
 .error {
 	background:red;
 }
 .success {
-	background:lightgreen;
+	background:#4f4;
+}
+
+
+table {
+	/*width:80%;*/
+	/*margin:0 auto;*/
 }

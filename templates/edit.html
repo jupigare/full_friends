@@ -1,19 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Update Friend ID {{ friend['id'] }}</title>
+  <title>Edit Friend ID {{ friend['id'] }}</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<h1>Update Friend ID {{ friend['id'] }}</h1>
+<h1>Edit Friend ID {{ friend['id'] }}</h1>
 <form action='/update' method='POST'>
   <table id="oneFriend">
-    <tr>
-      <td>ID</td>
-      <td>{{ friend['id'] }}</td>
-      <td></td>
+    <thead><tr>
+      <td>Property</td>
+      <td>Old Value</td>
+      <td>New Value</td>
+    </tr></thead>
     </tr>
     <tr>
       <td>First Name</td>
@@ -39,6 +40,8 @@
 
   <input type="submit" value="Update">
 </form>
+
+<h3>Delete Friend ID {{ friend['id'] }}</h3>
 <form action='/delete' method='POST'>
   <input type="submit" value="Delete">
 </form>
