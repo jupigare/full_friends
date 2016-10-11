@@ -1,0 +1,13 @@
+.flash {
+	font:2em bold;
+	text-align:center;
+	width:50%;
+	height:2em;
+	border:1px solid #000;
+}
+.error {
+	background:red;
+}
+.success {
+	background:lightgreen;
+}

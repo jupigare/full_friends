@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Update Friend ID {{ friend['id'] }}</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Update Friend ID {{ friend['id'] }}</h1>
+<form action='/update' method='POST'>
+  <table id="oneFriend">
+    <tr>
+      <td>ID</td>
+      <td>{{ friend['id'] }}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>First Name</td>
+      <td>{{ friend['first_name'] }}</td>
+      <td><input type="text" name="first_name" id="first_name"></td>
+    </tr>
+    <tr>
+      <td>Last Name</td>
+      <td>{{ friend['last_name'] }}</td>
+      <td><input type="text" name="last_name" id="last_name"></td>
+    </tr>
+    <tr>
+      <td>Occupation</td>
+      <td>{{ friend['occupation'] }}</td>
+      <td><input type="text" name="occupation" id="occupation"></td>
+    </tr>
+    <tr>
+      <td>Last Updated</td>
+      <td>{{ friend['updated_at'] }}</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <input type="submit" value="Update">
+</form>
+<form action='/delete' method='POST'>
+  <input type="submit" value="Delete">
+</form>
+
+</body>
+</html>

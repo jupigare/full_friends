@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Full Friends List</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% with errors = get_flashed_messages(category_filter=["err"]) %}
+  {% if errors %}
+      {%- for msg in errors %}
+        <p class="flash error">{{ msg }}</p>
+      {% endfor -%}
+  {% endif %}
+{% endwith %}
+{% with errors = get_flashed_messages(category_filter=["success"]) %}
+  {% if errors %}
+      {%- for msg in errors %}
+        <p class="flash success">{{ msg }}</p>
+      {% endfor -%}
+  {% endif %}
+{% endwith %}
+
+<h1>Friends List</h1>
+<table id="friendList">
+  <thead><tr>
+    <td>ID</td>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Occupation</td>
+    <td>Last Updated</td>
+    <td>Update/Delete</td>
+  </tr></thead><tbody>
+  {% for friends in all_friendss %}
+    <tr>
+      <td>{{ friend['id'] }}</td>
+      <td>{{ friend['first_name'] }}</td>
+      <td>{{ friend['last_name'] }}</td>
+      <td>{{ friend['occupation'] }}</td>
+      <td>{{ friend['updated_at'] }}</td>
+      <td><a href="/friends"+{{friend['id']}}>Edit</a></td>
+    </tr>
+  {% endfor %}
+</tbody></table>
+
+<h1>Add a Friend</h1>
+<form action='/add' method='POST'>
+  <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
+  <label for="last_name">Last Name:<input type="text" name="last_name" id="last_name"></label>
+  <label for="occupation">Occupation:<input type="text" name="occupation" id="occupation"></label>
+  <input type="submit" value="Add">
+</form>
+
+</body>
+</html>
