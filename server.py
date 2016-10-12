@@ -36,6 +36,7 @@ app.secret_key = 'ThisIsSecret'
 #         return True
 @app.route('/')
 def index():
+    friends = mysql.fetch("SELECT * FROM friendsdb")
     return render_template('index.html')
 
 @app.route('/friends', methods=['POST'])
