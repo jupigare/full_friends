@@ -119,10 +119,28 @@ def viewEdit(id):
 
 @app.route('/friends/<id>/delete', methods=['POST'])
 def delete(id):
+    query = "select * from friends WHERE id = :id"
+    data = {'id': id}
+    friend = mysql.query_db(query, data)
+    return render_template('delete_confirm.html', friend=friend[0])
+
+@app.route('/friends/<id>/delete_confirm', methods=['POST'])
+def delete_confirm(id):
+    friendquery = "select * from friends WHERE id = :id"
+    frienddata = {'id': int(id)}
+    friend = mysql.query_db(friendquery, frienddata)
+    flash("{} {} was removed.".format(friend[0]['first_name'],friend[0]['last_name']), "success")
     query = "DELETE FROM friends WHERE id = '{}'".format(id)
-    print query
-    delFriend = mysql.query_db(query)
-    print delFriend
+    mysql.query_db(query)
     return redirect('/')
+
+@app.route('/friends/<id>/delete_cancel', methods=['POST'])
+def delete_cancel(id):
+    friendquery = "select * from friends WHERE id = :id"
+    frienddata = {'id': int(id)}
+    friend = mysql.query_db(friendquery, frienddata)
+    flash("{} {} was not removed.".format(friend[0]['first_name'],friend[0]['last_name']), "success")
+    return redirect('/')
+
 
 app.run(debug=True)
