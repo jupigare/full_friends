@@ -22,7 +22,7 @@ def create():
 #     elif any(char.isdigit() for char in request.form['first_name']) == True:
         flash('First name cannot have numbers','firstNameError')
         errors += 1
-    else:
+    else: 
         flash('Success! First name is valid.', 'success')
       #Check last name
     if request.form['last_name'] == '':
