@@ -43,7 +43,7 @@
 </form>
 
 <h3>Delete Friend ID {{ friend['id'] }}</h3>
-<form action='/delete' method='POST'>
+<form action="/friends/{{friend['id']}}/delete" method='POST'>
   <input type="submit" value="Delete">
 </form>
 
