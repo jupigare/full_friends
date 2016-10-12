@@ -9,7 +9,7 @@
 <body>
 
 <h1>Edit Friend ID {{ friend['id'] }}</h1>
-<form action='/update' method='POST'>
+<form action='/friends/{{friend['id']}}' method='POST'>
   <table id="oneFriend">
     <thead><tr>
       <td>Property</td>

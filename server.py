@@ -9,8 +9,9 @@ regex_name = re.compile(r'^[a-zA-Z]+$')
 
 @app.route('/')
 def index():
-    friends = mysql.fetch("SELECT * FROM friendsdb")
-    return render_template('index.html')
+    query = "SELECT * FROM friends"
+    friends = mysql.query_db(query)
+    return render_template('index.html', all_friends = friends)
 
 @app.route('/friends', methods=['POST'])
 def create():
@@ -60,12 +61,61 @@ def create():
 
 @app.route('/friends/<id>', methods=['POST'])
 def editInfo(id):
-    print id
+    query = "select * from friends WHERE id = :id"
+    data = {
+             'id': id
+           }
+    oneFriend = mysql.query_db(query, data)
+
+    #Check first name
+    if request.form['first_name'] == '':
+        #if user leaves first_name field blank, leave it alone in db
+        temp_first = oneFriend[0]['first_name']
+    elif not regex_name.match(request.form['first_name']):
+        #if user inputs invalid first_name, leave it alone in db
+        temp_first = oneFriend[0]['first_name']
+        flash('First name cannot have numbers','firstNameError')
+    else:
+        temp_first = request.form['first_name']
+        flash('Success! First name changed.', 'success')
+    
+    #Check last name
+    if request.form['last_name'] == '':
+        #if user leaves last_name field blank, leave it alone in db
+        temp_last = oneFriend[0]['last_name']
+    elif not regex_name.match(request.form['last_name']):
+        #if user inputs invalid last_name, leave it alone in db
+        temp_last = oneFriend[0]['last_name']
+        flash('Last name cannot have numbers', 'lastNameError')
+    else:
+        temp_last = request.form['last_name']
+        flash('Success! Last name changed.', 'success')
+    
+    #Check occupation
+    if request.form['occupation'] == '':
+        #if user leaves occupation field blank, leave it alone in db
+        temp_occ = oneFriend[0]['occupation']
+    else:
+        temp_occ = request.form['occupation']
+        flash('Success! Occupation changed.', 'success')
+
+    query = "UPDATE friends set first_name= :first_name, last_name= :last_name, occupation= :occupation, updated_at = NOW() WHERE id = :id"
+    data = {
+             'first_name': temp_first,
+             'last_name': temp_last,
+             'occupation': temp_occ,
+             'id': id
+           }
+    mysql.query_db(query, data)
     return redirect('/')
 
 @app.route('/friends/<id>/edit')
 def viewEdit(id):
-    return render_template('edit.html')
+    query = "select * from friends WHERE id = :id"
+    data = {'id': id}
+    friend = mysql.query_db(query, data)
+    print friend
+    return render_template('edit.html', friend=friend[0])
 
 @app.route('/friends/<id>/delete', methods=['POST'])
 def delete(id):
