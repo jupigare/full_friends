@@ -19,3 +19,6 @@ table {
 	/*width:80%;*/
 	/*margin:0 auto;*/
 }
+table thead {
+	font-weight:bold;
+}

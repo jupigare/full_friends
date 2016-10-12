@@ -3,12 +3,11 @@
 <head>
   <title>Full Friends List</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="../static/style.css">
-<!--   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
  </head>
 <body>
 
-{% with errors = get_flashed_messages(category_filter=["err"]) %}
+{% with errors = get_flashed_messages(category_filter=['firstNameError','lastNameError','occupationError']) %}
   {% if errors %}
       {%- for msg in errors %}
         <p class="flash error">{{ msg }}</p>
@@ -46,7 +45,7 @@
 </tbody></table>
 
 <h2>Add a Friend</h2>
-<form action='/add' method='POST'>
+<form action='/friends' method='POST'>
   <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
   <label for="last_name"> Last Name:<input type="text" name="last_name" id="last_name"></label> &nbsp;
   <label for="occupation">Occupation:<input type="text" name="occupation" id="occupation"></label>
