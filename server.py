@@ -24,7 +24,7 @@ def create():
 #     elif any(char.isdigit() for char in request.form['first_name']) == True:
         flash('First name cannot have numbers','firstNameError')
         errors += 1
-    else: 
+    else:
         flash('Success! First name is valid.', 'success')
       #Check last name
     if request.form['last_name'] == '':
@@ -36,14 +36,14 @@ def create():
         errors += 1
     else:
         flash('Success! Last name is valid.', 'success')
-    
+
     #Check occupation
     if request.form['occupation'] == '':
         flash('Occupation cannot be blank', 'occupationError')
         errors += 1
     else:
         flash('Success! Occupation is valid.', 'success')
-    
+
 # See if there are any errors
     if errors > 0:
         flash('No data added to table. Please resolve above errors.', 'err')
@@ -78,7 +78,7 @@ def editInfo(id):
     else:
         temp_first = request.form['first_name']
         flash('Success! First name changed.', 'success')
-    
+
     #Check last name
     if request.form['last_name'] == '':
         #if user leaves last_name field blank, leave it alone in db
@@ -90,7 +90,7 @@ def editInfo(id):
     else:
         temp_last = request.form['last_name']
         flash('Success! Last name changed.', 'success')
-    
+
     #Check occupation
     if request.form['occupation'] == '':
         #if user leaves occupation field blank, leave it alone in db
@@ -119,6 +119,10 @@ def viewEdit(id):
 
 @app.route('/friends/<id>/delete', methods=['POST'])
 def delete(id):
+    query = "DELETE FROM friends WHERE id = '{}'".format(id)
+    print query
+    delFriend = mysql.query_db(query)
+    print delFriend
     return redirect('/')
 
 app.run(debug=True)
