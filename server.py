@@ -117,13 +117,20 @@ def viewEdit(id):
     print friend
     return render_template('edit.html', friend=friend[0])
 
-@app.route('/friends/<id>/delete', methods=['POST'])
+#going to the confirmation page is GET
+@app.route('/friends/<id>/delete')
 def delete(id):
+    return redirect ('/friends/{}/delete_redir'.format(id))
+
+@app.route('/friends/<id>/delete_redir')
+def delete_redir(id):
     query = "select * from friends WHERE id = :id"
     data = {'id': id}
     friend = mysql.query_db(query, data)
+    print "id to delete: ",id
     return render_template('delete_confirm.html', friend=friend[0])
 
+#actually doing the deletion is POST
 @app.route('/friends/<id>/delete_confirm', methods=['POST'])
 def delete_confirm(id):
     friendquery = "select * from friends WHERE id = :id"
